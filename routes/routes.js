@@ -18,7 +18,6 @@ app.get("/", async(req, res) => {
     try {
         // res.send(projects);
         res.render("home", { projects: projects} );
-        // res.sendFile(path.join(__dirname, '..', 'pages', 'home.html'));
     } catch (err) {
         res.status(500).send(err);
     }
@@ -26,14 +25,14 @@ app.get("/", async(req, res) => {
 
 app.get("/project/:projectId", async(req, res) => {
     const projectId = req.params.projectId;
-    console.log(projectId);
+    // console.log(projectId);
     try {
         const project = await prisma.projectDetail.findFirst({
             where: {
                 project_id: projectId,
             }
         });
-        console.log(project);
+        // console.log(project);
         res.render("project", {project : project});
     } catch (err) {
         res.status(500).send(err);
@@ -46,7 +45,6 @@ app.post("/createProjectBasic", async(req, res) => {
     const project = await projectModel(req.body);
 
     try {
-        console.log(123);
         await project.save();
         res.send(project);
     } catch (err) {
@@ -57,7 +55,6 @@ app.post("/createProjectBasic", async(req, res) => {
 
 // MySQLに新しいプロジェクト情報を追加
 app.post("/createProjectDetail", async(req, res) => {
-    console.log(123);
     const {
         project_id,
         name,
@@ -67,14 +64,15 @@ app.post("/createProjectDetail", async(req, res) => {
         end_date,
     } = await req.body;
 
-    console.log(
-        project_id,
-        name,
-        caption,
-        number,
-        start_date,
-        end_date,
-    )
+    // console.log(
+    //     project_id,
+    //     name,
+    //     caption,
+    //     number,
+    //     start_date,
+    //     end_date,
+    // )
+
     const project = await prisma.projectDetail.create({
         data: {
             project_id: project_id,
